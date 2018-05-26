@@ -1,0 +1,3 @@
+[
+  "test/unit/test_config.py::ConfigTests::test_config_load"
+]
