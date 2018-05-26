@@ -1,5 +1,8 @@
+import config.configuration as config
+
+CONFIG = None
+
 def run():
     running = True
     while running:
-        print('I am running')
-        running = False
+        CONFIG = config.load_config()
