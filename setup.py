@@ -1,7 +1,7 @@
 from setuptools import setup
 
 dependencies = ['sanic', 'pyyaml']
-test_dependencies = ['pytest', 'pytest-sanic', 'mock']
+test_dependencies = ['pytest', 'mock']
 
 setup(
     name="danish-amazon",
