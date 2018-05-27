@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 pytest = "*"
 pyyaml = "*"
+sanic = "*"
+mock = "*"
+pytest-sanic = "*"
 
 [dev-packages]
 

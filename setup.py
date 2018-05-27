@@ -1,6 +1,7 @@
 from setuptools import setup
 
-dependencies = []
+dependencies = ['sanic', 'pyyaml']
+test_dependencies = ['pytest', 'pytest-sanic', 'mock']
 
 setup(
     name="danish-amazon",
@@ -9,7 +10,8 @@ setup(
     author_email="nathan@nathankuik.com",
     description="Order things from nemlig",
     install_requires=dependencies,
-    packages=[],
+    tests_require=test_dependencies,
+    test_suite='pytest',
     entry_points={
         'console_scripts': [
             'danish-amazon = main:run',

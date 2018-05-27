@@ -5,6 +5,7 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 ## Todo
 
 - [ ] Create slackbot
+- [ ] Get sanic running
 - [ ] Create endpoint to receive commands/messages
 - [ ] Get bot chatting to point can be chat with
 - [ ] Start moving into production
