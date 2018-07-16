@@ -41,4 +41,4 @@ pip-selfcheck.json
 .cache
 pip-cache
 /.coverage
-config/local.yml
+config/*.yml
