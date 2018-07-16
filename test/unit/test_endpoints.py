@@ -29,3 +29,6 @@ class ConfigTests(unittest.TestCase):
 
     def test_wrong_authorization_request(self):
         pass
+
+    def test_config_route(self):
+        pass
