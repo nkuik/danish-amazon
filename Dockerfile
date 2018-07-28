@@ -1,21 +1,26 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 
 RUN apt update
 RUN apt install -y wget git libssl-dev python3 python3-pip
 RUN pip3 install --upgrade pip
 
-COPY twyla /application/twyla
-COPY pip-cache /pip-cache
-COPY requirements.txt /application/requirements.txt
-COPY setup.py /application/setup.py
-COPY config/kubecluster.yml /application/config.yml
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
 
-ENV TWYLA_XPI_CONF /application/config.yml
+RUN set -ex && mkdir /app
 
-WORKDIR /application/
+WORKDIR /app
 
-RUN pip3 install $(grep -ve '^git+ssh' /application/requirements.txt)
-RUN pip3 install --no-index --find-links=/pip-cache/ \
-    twyla.shared
+ONBUILD COPY Pipfile Pipfile
+ONBUILD COPY Pipfile.lock Pipfile.lock
 
-ENTRYPOINT ["twyla-xpi"]
+ONBUILD RUN set -ex && pipenv install --deploy --system
+
+ADD config config
+ENV DANISH_AMAZON_CONFIG /app/config/prod.yml
+
+FROM kennethreitz/pipenv
+
+COPY . /app
+
+CMD python3 main.py
