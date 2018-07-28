@@ -1,5 +1,0 @@
-[
-  "test/unit/test_config.py::ConfigTests::test_config_load",
-  "test/unit/test_endpoints.py::ConfigTests::test_oath_authentication",
-  "test/unit/test_endpoints.py::ConfigTests::test_wrong_authorization_request"
-]

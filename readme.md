@@ -6,7 +6,7 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 
 - [X] Get sanic running
 - [ ] Clean up entry point
-- [ ] Start moving into production
+- [ ] Deploy app
 - [ ] Create slackbot
 - [ ] Add an event listener
 - [ ] Create endpoint to receive commands/messages
