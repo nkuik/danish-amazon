@@ -1,6 +1,6 @@
 from setuptools import setup
 
-dependencies = ['sanic', 'pyyaml']
+dependencies = ['sanic', 'pyyaml', 'aiohttp']
 test_dependencies = ['pytest', 'mock']
 
 setup(
