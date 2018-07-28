@@ -20,7 +20,7 @@ def open_data_file(filename, read_mode='r'):
 class ConfigTests(unittest.TestCase):
 
     @mock.patch.dict(os.environ,
-        {'DANISH_AMAZON_CONFIG': f"{os.getcwd()}/config/test.yml"})
+                     {'DANISH_AMAZON_CONFIG': f"{os.getcwd()}/config/test.yml"})
     def test_oath_authentication(self):
         data = json.loads(open_data_file('oauth.json'))
         request, response = app.test_client.post('/listening', data=json.dumps(data))
