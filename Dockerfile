@@ -6,6 +6,7 @@ RUN pip3 install --upgrade pip
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
+ENV DANISH_AMAZON_CONFIG /app/config/prod.yml
 
 RUN set -ex && mkdir /app
 
@@ -19,7 +20,5 @@ ONBUILD RUN set -ex && pipenv install --deploy --system
 FROM kennethreitz/pipenv
 
 COPY . /app
-
-ENV DANISH_AMAZON_CONFIG /app/config/prod.yml
 
 CMD python3 main.py
