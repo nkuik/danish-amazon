@@ -5,12 +5,13 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 ## Todo
 
 - [X] Get sanic running
+- [ ] Fix config load
 - [ ] Clean up entry point
 - [ ] Deploy app
 - [ ] Create slackbot
 - [ ] Add an event listener
 - [ ] Create endpoint to receive commands/messages
 - [ ] Get bot chatting to point can be chat with
-- [ ] Automatic tests
+- [X] Automatic tests
 - [ ] Test coverage
 
