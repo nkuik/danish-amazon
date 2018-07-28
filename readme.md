@@ -5,6 +5,7 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 ## Todo
 
 - [X] Get sanic running
+- [ ] Clean up entry point
 - [ ] Start moving into production
 - [ ] Create slackbot
 - [ ] Add an event listener

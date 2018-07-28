@@ -16,11 +16,10 @@ ONBUILD COPY Pipfile.lock Pipfile.lock
 
 ONBUILD RUN set -ex && pipenv install --deploy --system
 
-ADD config config
-ENV DANISH_AMAZON_CONFIG /app/config/prod.yml
-
 FROM kennethreitz/pipenv
 
 COPY . /app
+
+ENV DANISH_AMAZON_CONFIG /app/config/prod.yml
 
 CMD python3 main.py

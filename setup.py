@@ -14,7 +14,7 @@ setup(
     test_suite='pytest',
     entry_points={
         'console_scripts': [
-            'danish-amazon = main',
+            'danish-amazon = main:run',
        ]
     },
     url="https://github.com/nkuik/danish-amazon",
