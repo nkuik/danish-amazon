@@ -4,8 +4,6 @@ import json
 import unittest
 import pkg_resources
 
-import config.configuration as config
-
 from main import app
 
 
@@ -19,9 +17,8 @@ def open_data_file(filename, read_mode='r'):
 
 class ConfigTests(unittest.TestCase):
 
-    @mock.patch('config.configuration.load_config',
-                return_value={'test': 'config'})
-    def test_oath_authentication(self, _):
+    @mock.patch('main.config.load_config', return_value={'this':'that'})
+    def test_oath_authentication(self, mock_app_config):
         data = json.loads(open_data_file('oauth.json'))
         request, response = app.test_client.post('/listening', data=json.dumps(data))
         assert response.status == 200
