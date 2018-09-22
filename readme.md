@@ -16,4 +16,4 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 - [ ] Get bot chatting to point can be chat with
 - [X] Automatic tests
 - [ ] Test coverage
-- [ ] Add health endpoint
+- [X] Add health endpoint

@@ -13,7 +13,6 @@ async def root(request):
 
 @app.route("/healthcheck")
 async def root(request):
-
     def addition_works():
         if 1 + 1 == 2:
             return True, "addition works"
