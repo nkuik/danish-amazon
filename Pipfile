@@ -9,6 +9,8 @@ PyYAML = "*"
 Sanic = "*"
 mock = "*"
 aiohttp = "*"
+coverage = "*"
+pytest-cov = "*"
 
 [dev-packages]
 
