@@ -10,5 +10,7 @@ install:
   - pipenv install --dev
 
 script:
-  - pytest --tb=native
+  - pytest --tb=native --cov=./
+
+after_success:
   - codecov
