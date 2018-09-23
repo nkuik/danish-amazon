@@ -6,7 +6,9 @@ python:
 
 install:
   - pip install pipenv
+  - pip install codecov
   - pipenv install --dev
 
 script:
   - pytest --tb=native
+  - codecov
