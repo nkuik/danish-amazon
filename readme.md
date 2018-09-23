@@ -12,9 +12,9 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 - [ ] Clean up entry point
 - [ ] Deploy app
 - [ ] Create slackbot
-- [ ] Add an event listener
-- [ ] Create endpoint to receive commands/messages
-- [ ] Get bot chatting to point can be chat with
+- [ ] Add an event listener in Slack
+- [ ] Create endpoint to receive commands/messages from Slack
+- [ ] Fix problem with environment variable in docker image
 - [X] Automatic tests
 - [X] Test coverage
 - [X] Add health endpoint
