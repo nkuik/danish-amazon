@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/nkuik/danish-amazon.png?branch=master)](https://travis-ci.org/nkuik/danish-amazon)
+[![codecov](https://codecov.io/gh/nkuik/danish-amazon/branch/master/graph/badge.svg)](https://codecov.io/gh/nkuik/danish-amazon)
 
 # Danish Amazon
 
@@ -15,5 +16,5 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 - [ ] Create endpoint to receive commands/messages
 - [ ] Get bot chatting to point can be chat with
 - [X] Automatic tests
-- [ ] Test coverage
+- [X] Test coverage
 - [X] Add health endpoint
