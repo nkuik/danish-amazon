@@ -10,11 +10,11 @@ Since Amazon doesn't exist in Denmark, but I want to have things delivered to my
 - [X] Get sanic running
 - [X] Fix config load
 - [ ] Clean up entry point
-- [ ] Deploy app
-- [ ] Create slackbot
-- [ ] Add an event listener in Slack
+- [ ] Deploy app to Kubernetes Engine
+- [ ] Create slackbot on Slack
+- [ ] Add a command event listener in Slack
 - [ ] Create endpoint to receive commands/messages from Slack
-- [ ] Fix problem with environment variable in docker image
+- [ ] Fix problem with env variable of config path in docker image
 - [X] Automatic tests
 - [X] Test coverage
 - [X] Add health endpoint
