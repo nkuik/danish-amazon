@@ -18,6 +18,12 @@ def open_data_file(filename, read_mode='r'):
 class ConfigTests(unittest.TestCase):
 
     @mock.patch('main.config.load_config', return_value={'this':'that'})
+    def test_home_page(self, __):
+        request, response = app.test_client.get('/')
+        assert response.status == 200
+        assert response.json == {'hello': 'world'}
+
+    @mock.patch('main.config.load_config', return_value={'this':'that'})
     def test_health_endpoint(self, mock_app_config):
         request, response = app.test_client.get('/healthcheck')
         assert response.status == 200
@@ -28,5 +34,6 @@ class ConfigTests(unittest.TestCase):
         data = json.loads(open_data_file('oauth.json'))
         request, response = app.test_client.post('/listening', data=json.dumps(data))
         assert response.status == 200
-        assert response.json == {'challenge': '3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P'}
-
+        assert response.json == {
+            'challenge': data['challenge']
+        }
