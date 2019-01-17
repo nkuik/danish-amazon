@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/nkuik/slack-client.png?branch=master)]
-[![codecov](https://codecov.io/gh/nkuik/slack-client/branch/master/graph/badge.svg)]
+![Build Status](https://travis-ci.org/nkuik/slack-client.png?branch=master)
+![codecov](https://codecov.io/gh/nkuik/slack-client/branch/master/graph/badge.svg)
 
 # Slack Client
 
