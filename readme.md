@@ -12,6 +12,7 @@ Simple async client to receive events from a slack chatbot.
 - [X] Automatic tests
 - [X] Test coverage
 - [X] Add health endpoint
+- [ ] Update all the danish-amazon references
 - [ ] Create endpoint to receive commands/messages from Slack
 - [ ] Create slackbot on Slack
 - [ ] Clean up entry point from setup file
