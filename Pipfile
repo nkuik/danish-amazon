@@ -11,8 +11,12 @@ mock = "*"
 aiohttp = "*"
 coverage = "*"
 pytest-cov = "*"
+pyyaml = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
