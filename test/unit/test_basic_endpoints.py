@@ -60,6 +60,7 @@ class ConfigTests(unittest.TestCase):
         {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/config.yml')})
     def test_checks_for_token(self):
         configuration = config.load_config()
+        app.config.update(config.load_config())
         headers = {"content-type": "application/x-www-form-urlencoded"}
         request, response = app.test_client.post('/depart',
             data=command_response, headers=headers)
