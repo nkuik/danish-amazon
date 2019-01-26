@@ -25,6 +25,14 @@ async def root(request):
 async def listening(request):
     return json({ "challenge": request.json['challenge'] })
 
+@app.route("/depart", methods=['POST'])
+async def depart(request):
+    return json(
+        {
+            "token": request.form['token']
+        }
+    )
+
 def run():
     app.config.update(config.load_config())
     app.run(host="0.0.0.0")
