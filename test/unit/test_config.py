@@ -10,5 +10,5 @@ class ConfigTests(unittest.TestCase):
         {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/test.yml')})
     def test_config_load(self):
         configuration = config.load_config()
-        assert configuration['twilio']['api-key'] == 'twilio-api-key'
+        assert configuration['slack']['command_token'] == 'test-token'
 

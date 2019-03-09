@@ -1,2 +1,2 @@
-twilio:
-  api-key: "twilio-api-key"
+slack:
+  command_token: test-token
