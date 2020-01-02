@@ -12,7 +12,7 @@ class Config(object):
 
 class ProdConfig(Config):
     """Production configuration."""
-    SLACK_SIGNING_SECRET = os.environ['SLACK_SIGNING_SECRET']
+    SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET')
 
     ENV = 'prod'
     DEBUG = False
@@ -21,7 +21,7 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     """Development configuration."""
-    SLACK_SIGNING_SECRET = os.environ['SLACK_SIGNING_SECRET']
+    SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET')
     ENV = 'dev'
     DEBUG = True
 
