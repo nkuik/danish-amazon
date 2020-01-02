@@ -1,6 +1,7 @@
 from sanic import Sanic
 from sanic.response import json
 
+import utilities as utilities
 import config.configuration as config
 
 app = Sanic(__name__)
@@ -22,21 +23,17 @@ async def healthcheck(request):
     return json(addition_works())
 
 
-app.route('/listening', methods=['POST'])
-async def listening(request):
-    return json({ 'challenge': request.json['challenge'] })
-
-
 @app.route('/depart', methods=['POST'])
 async def depart(request):
-    if ('token' not in request.form or
-            not request.form['token'][0] == app.config['slack']['command_token']):
+    if (request.headers.get('X-Slack-Request-Timestamp') is not None
+        and utilities.hash_matches(request.headers['X-Slack-Request-Timestamp'], app.config['SLACK_SIGNING_SECRET'])):
+        return json({'message': 'good to see you'},
+                    status = 200)
+    else:
         return json(
             {'message': 'You shouldn\'t be here'},
             status = 401
         )
-
-    return json({'token': request.form['token']})
 
 
 def run():

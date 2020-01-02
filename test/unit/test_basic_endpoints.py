@@ -21,63 +21,45 @@ command_response = "channel_id=CFPRYTN3D&token=test-token&channel_name=logistics
 
 class ConfigTests(unittest.TestCase):
 
-    @mock.patch('main.config.load_config', return_value={'this':'that'})
-    def test_home_page(self, __):
+    def test_home_page(self):
         request, response = app.test_client.get('/')
 
         assert response.status == 200
         assert response.json == {'hello': 'world'}
 
-    @mock.patch('main.config.load_config', return_value={'this':'that'})
-    def test_health_endpoint(self, mock_app_config):
+
+    def test_health_endpoint(self):
         request, response = app.test_client.get('/healthcheck')
 
         assert response.status == 200
         assert response.json == [True, 'addition works']
 
-    @mock.patch('main.config.load_config', return_value={'this':'that'})
-    def test_oath_authentication(self, mock_app_config):
-        data = json.loads(open_data_file('oauth.json'))
-        request, response = app.test_client.post('/listening', data=json.dumps(data))
 
-        assert response.status == 200
-        assert response.json == {
-            'challenge': data['challenge']
-        }
-
-    @mock.patch.dict(os.environ,
-        {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/test.yml')})
-    def test_correct_command_token_sends_200(self):
-        app.config.update(config.load_config())
-        headers = {"content-type": "application/x-www-form-urlencoded"}
-        request, response = app.test_client.post('/depart',
-            data=command_response, headers=headers)
+    def test_matching_signing_hash_sends_200(self):
+        headers = {'X-Slack-Request-Timestamp': '01/01/2020'}
+        app.config.from_object(config.load_config())
+        _, response = app.test_client.post('/depart',
+                                           data=json.dumps({}),
+                                           headers=headers)
 
         assert response.status == 200
 
-    @mock.patch.dict(os.environ,
-        {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/test.yml')})
-    def test_wrong_command_token_sends_401(self):
-        app.config.update(config.load_config())
-        wrong_command_response = "channel_id=CFPRYTN3D&token=wrong-token&channel_name=logistics&command=/depart&response_url=https://hooks.slack.com/commands/T90FV7BCN/535414414022/ZJIhUlIHhTUXkY5js3cKC35V&team_domain=getyourshittogethernk&team_id=T90FV7BCN&trigger_id=535055286759.306539249430.4d15d5e01b59b5e562b8dc560216235d&user_id=U8Z0Z2C3S&user_name=nathan.kuik"
 
-        configuration = config.load_config()
-        headers = {"content-type": "application/x-www-form-urlencoded"}
-        request, response = app.test_client.post('/depart',
-            data=wrong_command_response, headers=headers)
-
+    def test_non_matching_hash_sends_401(self):
+        headers = {'X-Slack-Request-Timestamp': '01/01/2020'}
+        app.config.from_object(config.load_config())
+        app.config['SLACK_SIGNING_SECRET'] = 'wrong!'
+        _, response = app.test_client.post('/depart',
+                                           data=json.dumps({}),
+                                           headers=headers)
         assert response.status == 401
 
-    @mock.patch.dict(os.environ,
-        {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/test.yml')})
-    def test_post_without_token_responds_401(self):
-        app.config.update(config.load_config())
-        wrong_command_response = 'completely-wrong'
 
-        configuration = config.load_config()
-        headers = {"content-type": "application/x-www-form-urlencoded"}
-        request, response = app.test_client.post('/depart',
-            data=wrong_command_response, headers=headers)
-
+    def test_post_without_timestamp(self):
+        headers = {'empty': 'not here'}
+        app.config.from_object(config.load_config())
+        app.config['SLACK_SIGNING_SECRET'] = 'wrong!'
+        _, response = app.test_client.post('/depart',
+                                           data=json.dumps({}),
+                                           headers=headers)
         assert response.status == 401
-
