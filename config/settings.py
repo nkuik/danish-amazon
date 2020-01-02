@@ -1,6 +1,5 @@
 import os
 
-
 class Config(object):
     pass
     # Set these when settings are moved to parent directory
@@ -21,9 +20,9 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     """Development configuration."""
-    print('I was called')
     SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET')
     ENV = 'dev'
+    import pdb; pdb.set_trace()
     DEBUG = True
 
 
@@ -32,12 +31,3 @@ class TestConfig(Config):
     SLACK_SIGNING_SECRET = 'blah'
     TESTING = True
     DEBUG = True
-
-
-def load_config():
-    if os.environ.get('env') == 'prod':
-        return ProdConfig()
-    if os.environ.get('env') == 'dev':
-        return DevConfig()
-    else:
-        return TestConfig()

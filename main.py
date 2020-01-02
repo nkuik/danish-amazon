@@ -3,7 +3,6 @@ from sanic.response import json
 
 import config.configuration as config
 
-
 app = Sanic(__name__)
 
 
@@ -11,8 +10,9 @@ app = Sanic(__name__)
 async def root(request):
     return json({'hello': 'world'})
 
+
 @app.route('/healthcheck')
-async def root(request):
+async def healthcheck(request):
     def addition_works():
         if 1 + 1 == 2:
             return True, 'addition works'
@@ -21,9 +21,11 @@ async def root(request):
 
     return json(addition_works())
 
-@app.route('/listening', methods=['POST'])
+
+app.route('/listening', methods=['POST'])
 async def listening(request):
     return json({ 'challenge': request.json['challenge'] })
+
 
 @app.route('/depart', methods=['POST'])
 async def depart(request):
@@ -36,9 +38,11 @@ async def depart(request):
 
     return json({'token': request.form['token']})
 
+
 def run():
-    app.config.update(config.load_config())
+    app.config.from_object(config.load_config())
     app.run(host='0.0.0.0')
+
 
 if __name__ == '__main__':
     run()
