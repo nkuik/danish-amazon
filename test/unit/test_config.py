@@ -2,13 +2,14 @@ import os
 import mock
 import unittest
 
+import pytest
+
 import config.configuration as config
 
 class ConfigTests(unittest.TestCase):
 
-    @mock.patch.dict(os.environ,
-        {'SLACK_CLIENT_CONFIG': os.path.join(os.getcwd(), 'config/test.yml')})
-    def test_config_load(self):
+    @mock.patch.dict(config.os.environ,
+                     {'env': 'not prod'})
+    def test_config_load_test(self):
         configuration = config.load_config()
-        assert configuration['slack']['command_token'] == 'test-token'
-
+        assert configuration.SLACK_SIGNING_SECRET == 'blah'
