@@ -6,7 +6,6 @@ RUN pip3 install --upgrade pip
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
-ENV SLACK_CLIENT_CONFIG=/app/config/config.yml
 
 RUN set -ex && mkdir /app
 

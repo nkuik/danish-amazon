@@ -12,7 +12,7 @@ Simple async client to receive events from a slack chatbot.
 - [X] Automatic tests
 - [X] Test coverage
 - [X] Add health endpoint
-- [ ] Load config as object instead of file
+- [X] Load config as object instead of file
 - [ ] Get docker image working with alpine image
 - [ ] Push app to container registry after merging changes
 - [ ] Get app up on EKS
