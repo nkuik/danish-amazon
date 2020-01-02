@@ -22,7 +22,6 @@ class DevConfig(Config):
     """Development configuration."""
     SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET')
     ENV = 'dev'
-    import pdb; pdb.set_trace()
     DEBUG = True
 
 
