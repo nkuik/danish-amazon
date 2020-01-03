@@ -31,11 +31,7 @@ steps:
 
 - bash: |
     pipenv run coverage run -m pytest
-    ls -a
-  displayName: Run pytest
-
-- script: |
     bash <(curl -s https://codecov.io/bash)
-  displayName: 'Upload to codecov.io'
+  displayName: Run pytest and upload codecov
   env:
     CODECOV_TOKEN: $(slack_client_codecov_token)
