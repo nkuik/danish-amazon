@@ -28,12 +28,11 @@ steps:
 - bash: |
     pipenv install --dev
   displayName: 'Install dependencies using pipenv'
-  workingDirectory: $(System.DefaultWorkingDirectory)
 
 - bash: |
     pipenv run coverage run -m pytest
+    ls
   displayName: Run pytest
-  workingDirectory:  $(System.DefaultWorkingDirectory)
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
