@@ -30,7 +30,7 @@ steps:
   displayName: 'Install dependencies using pipenv'
 
 - bash: |
-    pipenv run coverage run -m pytest
+    pipenv run coverage run -m pytest --cov-report xml
     bash <(curl -s https://codecov.io/bash)
   displayName: Run pytest and upload codecov
   env:
