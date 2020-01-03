@@ -1,8 +1,6 @@
 FROM python:3.7-alpine
 
-RUN apt update
-RUN apt install -y wget git libssl-dev python3 python3-pip
-RUN pip3 install --upgrade pip
+RUN apk update
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
@@ -19,6 +17,5 @@ ONBUILD RUN set -ex && pipenv install --deploy --system
 FROM kennethreitz/pipenv
 
 COPY . /app
-
 
 CMD python3 main.py

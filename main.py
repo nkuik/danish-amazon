@@ -12,8 +12,8 @@ async def root(request):
     return json({'hello': 'world'})
 
 
-@app.route('/healthcheck')
-async def healthcheck(request):
+@app.route('/healthz')
+async def healthz(request):
     def addition_works():
         if 1 + 1 == 2:
             return True, 'addition works'

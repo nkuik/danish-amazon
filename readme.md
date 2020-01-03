@@ -16,3 +16,4 @@ Simple async client to receive events from a slack chatbot.
 - [ ] Get docker image working with alpine image
 - [ ] Push app to container registry after merging changes
 - [ ] Get app up on EKS
+- [ ] Actually get backend working with Slack Command
