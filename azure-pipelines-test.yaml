@@ -28,7 +28,7 @@ steps:
   workingDirectory: $(Build.Repository.LocalPath)
 
 - script: |
-    pytest --cov=. tests/
+    pipenv run pytest --cov=. tests/
   displayName: 'Run tests'
 
 - script: |
