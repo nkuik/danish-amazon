@@ -1,0 +1,35 @@
+trigger:
+  branches:
+    include:
+      '*'
+
+pr:
+  branches:
+    include:
+    - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+  displayName: 'Use Python 3.7'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install pipenv
+  displayName: 'Install pipenv'
+
+- script: |
+    pipenv install --dev
+  displayName: 'Install pipenv'
+
+- script: |
+    pytest --cov=. tests/
+  displayName: 'Run tests'
+
+- script: |
+    bash <(curl -s https://codecov.io/bash)
+  displayName: 'Upload to codecov.io'

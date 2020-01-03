@@ -10,14 +10,13 @@ Sanic = "*"
 mock = "*"
 aiohttp = "*"
 coverage = "*"
-pytest-cov = "*"
 pyyaml = "*"
 
 [dev-packages]
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
 
 [pipenv]
 allow_prereleases = true
-
