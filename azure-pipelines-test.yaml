@@ -11,6 +11,9 @@ pr:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- group: 'test-build-release'
+
 steps:
 - task: UsePythonVersion@0
   inputs:
@@ -24,7 +27,7 @@ steps:
 
 - script: |
     pipenv install --dev
-  displayName: 'Install <dependencies></dependencies>'
+  displayName: 'Install dependencies using pipenv'
   workingDirectory: $(Build.Repository.LocalPath)
 
 - script: |
@@ -34,3 +37,5 @@ steps:
 - script: |
     bash <(curl -s https://codecov.io/bash)
   displayName: 'Upload to codecov.io'
+  env:
+    CODECOV_TOKEN: $(slack_client_codecov_token)
