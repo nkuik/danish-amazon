@@ -20,24 +20,23 @@ steps:
     versionSpec: '3.7'
   displayName: 'Use Python 3.7'
 
-- script: |
+- bash: |
     python -m pip install --upgrade pip
     pip install pipenv
   displayName: 'Install pipenv'
 
-- script: |
+- bash: |
     pipenv install --dev
   displayName: 'Install dependencies using pipenv'
-  workingDirectory: $(Build.Repository.LocalPath)
+  workingDirectory: $(System.DefaultWorkingDirectory)
 
-- script: |
+- bash: |
     pipenv run coverage run -m pytest
-  displayName: 'Run tests'
-  workingDirectory: $(Build.Repository.LocalPath)
+  displayName: Run pytest
+  workingDirectory:  $(System.DefaultWorkingDirectory)
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
   displayName: 'Upload to codecov.io'
-  workingDirectory: $(Build.Repository.LocalPath)
   env:
     CODECOV_TOKEN: $(slack_client_codecov_token)
