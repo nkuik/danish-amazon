@@ -24,7 +24,8 @@ steps:
 
 - script: |
     pipenv install --dev
-  displayName: 'Install pipenv'
+  displayName: 'Install <dependencies></dependencies>'
+  workingDirectory: $(Build.Repository.LocalPath)
 
 - script: |
     pytest --cov=. tests/
