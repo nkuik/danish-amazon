@@ -33,9 +33,11 @@ steps:
 - script: |
     pipenv run pytest --cov=. tests/
   displayName: 'Run tests'
+  workingDirectory: $(Build.Repository.LocalPath)
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
   displayName: 'Upload to codecov.io'
+  workingDirectory: $(Build.Repository.LocalPath)
   env:
     CODECOV_TOKEN: $(slack_client_codecov_token)
