@@ -31,7 +31,7 @@ steps:
 
 - bash: |
     pipenv run coverage run -m pytest
-    ls
+    ls -a
   displayName: Run pytest
 
 - script: |
