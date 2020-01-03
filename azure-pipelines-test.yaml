@@ -31,7 +31,7 @@ steps:
   workingDirectory: $(Build.Repository.LocalPath)
 
 - script: |
-    pipenv run pytest --cov=. tests/
+    pipenv run coverage run -m pytest
   displayName: 'Run tests'
   workingDirectory: $(Build.Repository.LocalPath)
 
