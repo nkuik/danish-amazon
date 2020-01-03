@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+    - '*'
+
+pr:
+  branches:
+    include:
+    - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: 'test-build-release'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+  displayName: 'Use Python 3.7'
+
+- bash: |
+    python -m pip install --upgrade pip
+    pip install pipenv
+  displayName: 'Install pipenv'
+
+- bash: |
+    pipenv install --dev
+  displayName: 'Install dependencies using pipenv'
+
+- bash: |
+    pipenv run coverage run -m pytest --cov-report xml
+    bash <(curl -s https://codecov.io/bash)
+  displayName: Run pytest and upload codecov
+  env:
+    CODECOV_TOKEN: $(slack_client_codecov_token)
