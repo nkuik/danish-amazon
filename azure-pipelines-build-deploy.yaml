@@ -11,7 +11,7 @@ variables:
 - name: imageName
   value: '$(docker_id)/slack-client'
 
-stages:
+# stages:
 # - stage: Build
 #   displayName: Build docker images
 #   jobs:
