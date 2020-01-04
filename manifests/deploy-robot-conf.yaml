@@ -20,10 +20,41 @@ metadata:
 rules: # ## Customize these to meet your requirements ##
 - apiGroups: ["apps"]
   resources: ["deployments"]
-  verbs: ["create", "delete"]
+  verbs: ["create", "delete","get"]
 - apiGroups: [""]
   resources: ["pods"]
-  verbs: ["create", "delete"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["serviceaccounts"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["create", "delete","get"]
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: deploy-robot-role
+  namespace: slack-client
+rules: # ## Customize these to meet your requirements ##
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["serviceaccounts"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["create", "delete","get"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["create", "delete","get"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
