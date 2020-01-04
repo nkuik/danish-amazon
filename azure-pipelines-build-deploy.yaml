@@ -45,21 +45,18 @@ stages:
     displayName: Deploy to Kubernetes
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'Test.too-good-to-go-practice'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              artifactName: 'manifests'
-              downloadPath: '$(System.ArtifactsDirectory)/manifests'
 
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
-            inputs:
-              kubernetesServiceConnection: Test-default-1578153450332
-              action: deploy
-              namespace: slack-client
-              manifests: |
-                $(System.ArtifactsDirectory)/manifests/deployment.yml
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifactName: 'manifests'
+        downloadPath: '$(System.ArtifactsDirectory)/manifests'
+
+    - task: KubernetesManifest@0
+      displayName: Deploy to Kubernetes cluster
+      inputs:
+        kubernetesServiceConnection: Test-default-1578153450332
+        action: deploy
+        namespace: slack-client
+        manifests: |
+          $(System.ArtifactsDirectory)/manifests/deployment.yml
