@@ -58,4 +58,4 @@ stages:
         action: deploy
         namespace: slack-client
         manifests: |
-          $(System.ArtifactsDirectory)/manifests/deployment.yml
+          $(System.ArtifactsDirectory)/manifests/deployment.yaml
