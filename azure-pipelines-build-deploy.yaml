@@ -12,26 +12,26 @@ variables:
   value: '$(docker_id)/slack-client'
 
 stages:
-- stage: Build
-  displayName: Build docker images
-  jobs:
-  - job: Build
-    displayName: Build Docker images
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: docker build -f Dockerfile -t $(imageName) .
-      displayName: 'docker build'
-    - script: docker login -u $(docker_id) -p $(docker_token)
-      displayName: 'docker login'
-    - script: |
-            docker tag $(imageName) $(imageName):$(build.buildNumber)
-            docker push $(imageName):$(build.buildNumber)
-      displayName: 'docker push with build number'
-    - task: PublishPipelineArtifact@1
-      inputs:
-        artifactName: 'manifests'
-        path: 'manifests'
+# - stage: Build
+#   displayName: Build docker images
+#   jobs:
+#   - job: Build
+#     displayName: Build Docker images
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#     - script: docker build -f Dockerfile -t $(imageName) .
+#       displayName: 'docker build'
+#     - script: docker login -u $(docker_id) -p $(docker_token)
+#       displayName: 'docker login'
+#     - script: |
+#             docker tag $(imageName) $(imageName):$(build.buildNumber)
+#             docker push $(imageName):$(build.buildNumber)
+#       displayName: 'docker push with build number'
+#     - task: PublishPipelineArtifact@1
+#       inputs:
+#         artifactName: 'manifests'
+#         path: 'manifests'
 
 - stage: Deploy
   displayName: Deploy to Kubernetes
@@ -49,6 +49,7 @@ stages:
   - script: |
       aws2 configure
       aws2 eks --region eu-west-1 update-kubeconfig --name too-good-to-go-practice
+      kubectl apply -f manifests/deploy-robot-conf.yaml
   env:
     AWS_ACCESS_KEY_ID: $(aws_access_key_id)
     AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
