@@ -49,7 +49,7 @@ stages:
     - task: KubernetesManifest@0
       displayName: Deploy to Kubernetes cluster
       inputs:
-        kubernetesServiceConnection: Test-default-1578153450332
+        kubernetesServiceConnection: too-good-to-go-practice
         action: deploy
         manifests: |
           $(System.ArtifactsDirectory)/manifests/deployment.yaml
