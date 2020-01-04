@@ -15,33 +15,29 @@ variables:
 - name: imageName
   value: '$(docker_id)/slack-client'
 
-- stage: Build
-  displayName: Build stage
-  dependsOn: Test
+jobs:
+- job: Build
+  displayName: Build Docker images
+  pool:
+    vmImage: 'ubuntu-latest'
 
-  jobs:
-  - job: Build
-    displayName: Build Docker images
-    pool:
-      vmImage: 'ubuntu-latest'
+  steps:
+  - script: docker build -f Dockerfile -t $(imageName) .
+    displayName: 'docker build'
 
-    steps:
-    - script: docker build -f Dockerfile -t $(imageName) .
-      displayName: 'docker build'
+  - script: docker login -u $(docker_id) -p $(docker_token)
+    displayName: 'docker login'
 
-    - script: docker login -u $(docker_id) -p $(docker_token)
-      displayName: 'docker login'
+  - script: docker push $(imageName)
+    displayName: 'docker push latest if this is the master branch'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-    - script: docker push $(imageName)
-      displayName: 'docker push latest if this is the master branch'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  - script: |
+          docker tag $(imageName) $(imageName):$(build.buildNumber)
+          docker push $(imageName):$(build.buildNumber)
+    displayName: 'docker push with build number'
 
-    - script: |
-            docker tag $(imageName) $(imageName):$(build.buildNumber)
-            docker push $(imageName):$(build.buildNumber)
-      displayName: 'docker push with build number'
-
-    - task: PublishPipelineArtifact@1
-      inputs:
-        artifactName: 'manifests'
-        path: 'manifests'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'manifests'
+      path: 'manifests'
