@@ -41,6 +41,8 @@ spec:
             httpGet:
               port: 8000
               path: /healthz
+            initialDelaySeconds: 3
+            periodSeconds: 3
           ports:
           - containerPort: 8000
 
