@@ -50,6 +50,6 @@ stages:
       aws2 configure
       aws2 eks --region eu-west-1 update-kubeconfig --name too-good-to-go-practice
       kubectl apply -f manifests/deploy-robot-conf.yaml
-  env:
-    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
-    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
+    env:
+      AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+      AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
