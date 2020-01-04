@@ -51,5 +51,5 @@ stages:
       inputs:
         kubernetesServiceConnection: Test-default-1578153450332
         action: deploy
-            manifests: |
+        manifests: |
           $(System.ArtifactsDirectory)/manifests/deployment.yaml
