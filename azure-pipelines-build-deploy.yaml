@@ -1,0 +1,65 @@
+trigger:
+- master
+
+# Don't run against PRs
+pr: none
+
+name: $(build.sourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+- group: 'test-build-release'
+- name: imageName
+  value: '$(docker_id)/slack-client'
+
+stages:
+- stage: Build
+  displayName: Build docker images
+  jobs:
+  - job: Build
+    displayName: Build Docker images
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - script: docker build -f Dockerfile -t $(imageName) .
+      displayName: 'docker build'
+
+    - script: docker login -u $(docker_id) -p $(docker_token)
+      displayName: 'docker login'
+
+    - script: |
+            docker tag $(imageName) $(imageName):$(build.buildNumber)
+            docker push $(imageName):$(build.buildNumber)
+      displayName: 'docker push with build number'
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy to Kubernetes
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'too-good-to-go-practice.slack-client'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              kubernetesServiceConnection: too-good-to-go-practice
+              action: deploy
+              namespace: slack-client
+              manifests: |
+                $(System.ArtifactsDirectory)/manifests/deployment.yml
