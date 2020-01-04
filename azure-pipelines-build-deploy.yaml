@@ -37,20 +37,18 @@ stages:
   displayName: Deploy to Kubernetes
   dependsOn: Build
   jobs:
-  - job: Deploy
-    displayName: Deploy to Kubernetes
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        artifactName: 'manifests'
-        downloadPath: '$(System.ArtifactsDirectory)/manifests'
-    - task: KubernetesManifest@0
-      displayName: Deploy to Kubernetes cluster
-      inputs:
-        kubernetesServiceConnection: tgtg-practice
-        namespace: slack-client
-        action: deploy
-        manifests: |
-          $(System.ArtifactsDirectory)/manifests/deployment.yaml
+  - script: |
+      curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+    displayName: Install AWS cli
+  - script: |
+      curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+      chmod +x ./kubectl
+      sudo mv ./kubectl /usr/local/bin/kubectl
+  - script: |
+      aws2 configure
+      aws2 eks --region eu-west-1 update-kubeconfig --name too-good-to-go-practice
+  env:
+    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
