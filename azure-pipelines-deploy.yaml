@@ -5,8 +5,8 @@
   - deployment: Deploy
     displayName: Deploy job
     pool:
-      vmImage: $(vmImageName)
-    environment: 'shashankbarsinpipelinesjavascriptdocker.aksnamespace'
+      vmImage: 'ubuntu-latest'
+    environment: 'too-good-to-go-practice.slack-client'
     strategy:
       runOnce:
         deploy:
@@ -17,22 +17,10 @@
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
 
           - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              namespace: $(k8sNamespace)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-
-          - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
+              kubernetesServiceConnection: too-good-to-go-practice
               action: deploy
-              namespace: $(k8sNamespace)
+              namespace: slack-client
               manifests: |
                 $(System.ArtifactsDirectory)/manifests/deployment.yml
-                $(System.ArtifactsDirectory)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
