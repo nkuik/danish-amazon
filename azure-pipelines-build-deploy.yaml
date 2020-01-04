@@ -53,7 +53,7 @@ jobs:
       sudo mv ./kubectl /usr/local/bin/kubectl
     displayName: Install kubectl
   - bash: |
-      aws2 configure
+      aws2 configure --region eu-west-1 --output json
       aws2 eks --region eu-west-1 update-kubeconfig --name too-good-to-go-practice
       kubectl apply -f manifests/deploy-robot-conf.yaml
     env:
