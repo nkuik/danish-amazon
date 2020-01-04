@@ -37,16 +37,17 @@ stages:
   displayName: Deploy to Kubernetes
   dependsOn: Build
   jobs:
-  - script: |
+  - bash: |
       curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
     displayName: Install AWS cli
-  - script: |
+  - bash: |
       curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
       chmod +x ./kubectl
       sudo mv ./kubectl /usr/local/bin/kubectl
-  - script: |
+    displayName: Install kubectl
+  - bash: |
       aws2 configure
       aws2 eks --region eu-west-1 update-kubeconfig --name too-good-to-go-practice
       kubectl apply -f manifests/deploy-robot-conf.yaml
