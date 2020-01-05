@@ -2,70 +2,55 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: deploy-robot
+  namespace: default
 automountServiceAccountToken: false
+
 ---
+
 apiVersion: v1
 kind: Secret
 metadata:
   name: deploy-robot-secret
+  namespace: default
   annotations:
     kubernetes.io/service-account.name: deploy-robot
 type: kubernetes.io/service-account-token
+
 ---
-kind: Role
+
+kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: deploy-robot-role
-  namespace: default
-rules: # ## Customize these to meet your requirements ##
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["serviceaccounts"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["namespaces"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["create", "delete", "get"]
+  name: job-master
+rules:
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - create
+  - delete
+  - deletecollection
+  - get
+  - list
+  - patch
+  - update
+  - watch
+
 ---
-kind: Role
+
 apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: deploy-robot-role
-  namespace: slack-client
-rules: # ## Customize these to meet your requirements ##
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["serviceaccounts"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["namespaces"]
-  verbs: ["create", "delete", "get"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["create", "delete", "get"]
----
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: global-rolebinding
-  namespace: default
+  name: deploy-robot-1
+  namespace: slack-client
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: job-master
 subjects:
 - kind: ServiceAccount
   name: deploy-robot
   namespace: default
-roleRef:
-  kind: Role
-  name: deploy-robot-role
-  apiGroup: rbac.authorization.k8s.io
+
+
