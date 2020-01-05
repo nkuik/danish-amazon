@@ -38,7 +38,7 @@ async def depart(request):
 
 def run():
     app.config.from_object(config.load_config())
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=8080)
 
 
 if __name__ == '__main__':

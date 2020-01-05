@@ -12,7 +12,7 @@ spec:
     - name: https
       port: 443
       targetPort: 8443
-      protocal: TCP
+      protocol: TCP
   type: LoadBalancer
   selector:
     app: slack-client

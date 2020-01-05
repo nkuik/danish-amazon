@@ -16,7 +16,7 @@ spec:
       spec:
         containers:
         - name: slack-client
-          image: nkuik89/slack-client:latest
+          image: nkuik89/slack-client:f214322d4a30be41b19043596eae7a881bb29d9a
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
@@ -29,4 +29,4 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 3
           ports:
-          - containerPort: 80
+          - containerPort: 8080
