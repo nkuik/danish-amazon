@@ -21,6 +21,7 @@ jobs:
     displayName: Deploy to Kubernetes cluster
     inputs:
       kubernetesServiceConnection: tgtg-practice
+      namespace: slack-client
       action: deploy
       manifests: |
         $(Build.Repository.LocalPath)/manifests/deployment.yaml
