@@ -20,7 +20,7 @@ jobs:
   - task: KubernetesManifest@0
     displayName: Deploy to Kubernetes cluster
     inputs:
-      kubernetesServiceConnection: tgtg-practice
+      kubernetesServiceConnection: tgtg-practice-slack-client
       namespace: slack-client
       action: deploy
       manifests: |
