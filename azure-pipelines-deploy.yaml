@@ -1,5 +1,5 @@
 trigger:
-- master
+- none
 
 # Don't run against PRs
 pr: none
