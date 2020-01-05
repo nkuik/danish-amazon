@@ -18,6 +18,4 @@ FROM kennethreitz/pipenv
 
 COPY . /app
 
-EXPOSE 8000
-
 CMD python3 main.py
