@@ -18,5 +18,5 @@ Simple async client to receive events from a slack chatbot.
 - [X] Get app up on EKS (generic provide on Azure pipelines)
 - [X] Create service on Kubernetes
 - [ ] Add Nginx
-- [ ] Automate EKS deployments
+- [ ] Automate EKS deployments (Helm)
 - [ ] Actually get backend working with Slack Command
