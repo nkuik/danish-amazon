@@ -22,8 +22,10 @@ jobs:
   - script: docker login -u $(docker_id) -p $(docker_token)
     displayName: 'docker login'
   - script: |
-          docker tag $(imageName) $(imageName):$(build.buildNumber) $(imageName):$(Build.SourceVersion)
+          docker tag $(imageName) $(imageName):$(build.buildNumber)
+          docker tag $(imageName) $(imageName):$(Build.SourceVersion)
           docker push $(imageName):$(build.buildNumber)
+          docker push $(imageName):$(Build.SourceVersion)
     displayName: 'docker push with build number'
   - task: PublishPipelineArtifact@1
     inputs:
