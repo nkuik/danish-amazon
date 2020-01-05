@@ -4,8 +4,6 @@ trigger:
 # Don't run against PRs
 pr: none
 
-name: $(build.sourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
-
 variables:
 - group: 'test-build-release'
 - name: imageName
