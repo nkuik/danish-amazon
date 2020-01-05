@@ -1,0 +1,31 @@
+trigger:
+- master
+
+# Don't run against PRs
+pr: none
+
+name: $(build.sourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+- group: 'test-build-release'
+- name: imageName
+  value: '$(docker_id)/slack-client'
+
+jobs:
+- job: Build
+  displayName: Build and push Docker images to Docker Hub
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - script: docker build -f Dockerfile -t $(imageName) .
+    displayName: 'docker build'
+  - script: docker login -u $(docker_id) -p $(docker_token)
+    displayName: 'docker login'
+  - script: |
+          docker tag $(imageName) $(imageName):$(build.buildNumber) $(imageName):$(Build.SourceVersion)
+          docker push $(imageName):$(build.buildNumber)
+    displayName: 'docker push with build number'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'manifests'
+      path: 'manifests'
