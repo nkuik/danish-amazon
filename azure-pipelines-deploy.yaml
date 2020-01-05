@@ -23,5 +23,4 @@ jobs:
       kubernetesServiceConnection: tgtg-practice
       action: deploy
       manifests: |
-        $(Build.Repository.LocalPath
-)/manifests/deployment.yaml
+        $(Build.Repository.LocalPath)/manifests/deployment.yaml
