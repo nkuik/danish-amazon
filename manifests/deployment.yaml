@@ -20,13 +20,13 @@ spec:
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
-              port: 8000
+              port: 8080
               path: /healthz
           livenessProbe:
             httpGet:
-              port: 8000
+              port: 8080
               path: /healthz
             initialDelaySeconds: 3
             periodSeconds: 3
           ports:
-          - containerPort: 8000
+          - containerPort: 80
