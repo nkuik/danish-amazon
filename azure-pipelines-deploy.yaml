@@ -1,0 +1,25 @@
+trigger:
+- master
+
+# Don't run against PRs
+pr: none
+
+variables:
+- group: 'test-build-release'
+- name: imageName
+  value: '$(docker_id)/slack-client'
+
+jobs:
+- job: Deploy
+  displayName: Deploy to Kubernetes
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: KubernetesManifest@0
+    displayName: Deploy to Kubernetes cluster
+    inputs:
+      kubernetesServiceConnection: robot-deploy
+      namespace: slack-client
+      action: deploy
+      manifests: |
+        $(Build.Repository.LocalPath)/manifests/deployment.yaml
