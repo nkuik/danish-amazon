@@ -16,7 +16,11 @@ spec:
       spec:
         containers:
         - name: slack-client
+<<<<<<< HEAD
           image: nkuik89/slack-client:5e8c70fba7d8922b1e70a49f92f6c27fa316839c
+=======
+          image: nkuik89/slack-client:f214322d4a30be41b19043596eae7a881bb29d9a
+>>>>>>> 5e8c70fba7d8922b1e70a49f92f6c27fa316839c
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
