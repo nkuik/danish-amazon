@@ -29,5 +29,5 @@ jobs:
     displayName: 'docker push with build number'
   - task: PublishPipelineArtifact@1
     inputs:
-      artifactName: 'manifests'
-      path: 'manifests'
+      artifactName: 'slack-client-helm'
+      path: 'slack-client'
