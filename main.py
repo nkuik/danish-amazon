@@ -1,5 +1,6 @@
 from sanic import Sanic
 from sanic.response import json
+from sanic.log import logger
 
 import utilities as utilities
 import config.configuration as config
@@ -14,6 +15,7 @@ async def root(request):
 
 @app.route('/healthz')
 async def healthz(request):
+    logger.info('Healthz request was made')
     def addition_works():
         if 1 + 1 == 2:
             return True
