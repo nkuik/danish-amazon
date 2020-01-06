@@ -22,7 +22,7 @@ class ConfigTests(unittest.TestCase):
         request, response = app.test_client.get('/healthz')
 
         assert response.status == 200
-        assert response.json == [True, 'addition works']
+        assert response.json == True
 
 
     def test_matching_signing_hash_sends_200(self):

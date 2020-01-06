@@ -16,9 +16,9 @@ async def root(request):
 async def healthz(request):
     def addition_works():
         if 1 + 1 == 2:
-            return True, 'addition works'
+            return True
         else:
-            return False, 'the universe is broken'
+            return False
 
     return json(addition_works())
 
