@@ -1,4 +1,5 @@
-[![Build Status](https://dev.azure.com/kubernetes-test/eks-practice/_apis/build/status/nkuik.slack-client?branchName=master)](https://dev.azure.com/kubernetes-test/eks-practice/_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://dev.azure.com/kubernetes-test/eks-practice/_apis/build/status/nkuik.slack-client.test?branchName=master)](https://dev.azure.com/kubernetes-test/eks-practice/_build/latest?definitionId=2&branchName=master)
+
 ![codecov](https://codecov.io/gh/nkuik/slack-client/branch/master/graph/badge.svg)
 
 # Slack Client
